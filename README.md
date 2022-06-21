@@ -26,7 +26,7 @@ delta.loopring.eth
 
 Feel free to use for your own html/canvas NFT needs.
 
-Just credit me **(Alex Delderfield/twitter.com/Alex_ADEdge)** somewhere/sometime, and be sure to show me any neat NFTs this helps you make :D
+Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/sometime, and be sure to show me any neat NFTs this helps you make :D
 
 <hr>
 
