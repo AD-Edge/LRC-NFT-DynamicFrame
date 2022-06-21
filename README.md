@@ -51,3 +51,9 @@ Initial version features:
 -Demo custom font & font loading
 
 ***Testing and feedback needed
+
+Known issues in v0.1:
+
+-aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)
+
+-touch screen functionality broken for 'Doco' element
