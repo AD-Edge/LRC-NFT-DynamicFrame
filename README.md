@@ -52,6 +52,8 @@ Initial version features:
 
 ***Testing and feedback needed
 
+<hr>
+
 Known issues in v0.1:
 
 -aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)
