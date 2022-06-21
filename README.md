@@ -29,7 +29,7 @@ Just credit me **(Alex Delderfield/twitter.com/Alex_ADEdge)** somewhere/sometime
 
 ## Version 0.1 
 
-Completed 21/06/2022 (view an interactive demo version minted here)
+Completed 21/06/2022 ([minted version here](https://lexplorer.io/nfts/0x22b60c6ff19b6590216d5a45a96de404cd1897d3-0-0xfe23138c751c8146f2787738ba63333240508901-0xd5cf18b4c18caabc96610b6cec708b99470140a339dd1eae8697321da0b61a8d-5))
 
 Initial version features:
 
