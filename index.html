@@ -1,0 +1,34 @@
+<!-- An experimental NFT TEMPLATE using HTML/Canvas/JS -->
+<!-- Created By Alex Delderfield, 2022 -->
+<!-- https://twitter.com/Alex_ADEdge -->
+<!-- delta.loopring.eth -->
+<!-- LRC-NFT-DynamicFrame [https://github.com/AD-Edge/LRC-NFT-DynamicFrame] -->
+<!-- This setup is designed to scale the canvas/setup overall to fit in a variety of wallets. -->
+<!-- An issue I ran into given the lack of consistency between different wallet types we have now (and going into the unknown future) -->
+<!-- This template scales between 320 (GME wallet smallest size) and 720 (for higher res requirements), but can be modified as needed via the stylesheet/CSS -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="src/style.css">
+        <script src="src/code.js"></script>  
+        <title>_template_v0.1</title>
+    </head>
+    <body>
+        <!-- nftBOX is the primary div & the one which scales dynamically -->
+        <!-- Set dimension min/max in CSS -->
+        <div id="nftBOX">
+            <!-- The canvas we draw to for the NFT  -->
+            <canvas id="canvasMain"  width="100%" height="100%"></canvas>
+
+            <!-- Interactive content example - Doco! -->
+            <img id="doco" src="src/doco_spin_ops.gif" alt="doco">
+
+            <!-- Shameless plug to my twitter *eye roll* -->
+            <div class="container" id="deltaLinkImg">
+                <a href="https://twitter.com/Alex_ADEdge" target="_blank" rel="noopener noreferrer">
+                    <div id="delta" class="image" alt="deltaLink"></div> 
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

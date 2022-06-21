@@ -1,0 +1,87 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden; /*  Disable scrollbars */
+  display: block; /* No floating content on sides */
+  background-color: #222222;
+}
+
+/* !!Main Dimension Min/Max set here!! */
+#nftBOX {
+  position: absolute;
+  z-index: 8;
+  opacity: 1;
+  min-height: 320px;
+  min-width: 320px;
+  max-height: 720px;
+  max-width: 720px;
+  height: 100%;
+  aspect-ratio: 1/1;
+  top: 0px;
+  left: 0px;
+  /* disable canvas to see outline, good for debugging */
+  outline: 2px dashed #DDDDFF;
+  outline-offset: -6px;
+}
+
+/* Primary canvas to draw to */
+#canvasMain {
+  position: absolute;
+  z-index: 1;
+  opacity: 1;
+  top: 0px;
+  left: 0px;
+  outline: 2px solid #ff7d32;
+  outline-offset: -2px;
+  background-color: #8d8d8d;
+}
+
+/* Example of a dynamic element 
+Which scales with the help of javascript */
+#doco {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 0px;
+  left: 0px;
+  visibility: visible; 
+  z-index: 2; 
+  pointer-events: none;
+}
+
+/* Example of a simple static element which scales */
+#delta {
+  opacity: 0.2;
+  bottom: 42%;
+  right: 1%;
+  width: 16%;
+  height: 16%;
+  background-image:url(iconDelta.png);
+}
+
+/* Colourful hover for images */
+.container a .image {
+  z-index: 12;
+  position: absolute;
+  width: 134px;
+  height: 134px;
+  background-size: cover;
+}
+.container a .image:before {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: #1c60ff; /* Loopring Blue */
+  mix-blend-mode: multiply;
+  -webkit-transition: opacity .25s ease;
+  transition: opacity .25s ease;
+}
+.container a:hover .image:before {
+  opacity: 0.85;
+}
