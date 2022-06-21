@@ -1,19 +1,21 @@
 # LRC-NFT-DynamicFrame
-A dynamic-frame template for canvas/html-based NFT dev.
+A dynamic-frame template for canvas/html-based NFT dev on Loopring L2.
 
 # About
-This setup is designed to scale the canvas/setup overall to fit in a variety of wallets.
-An issue I ran into given the lack of consistency between different wallet types we have now (and going into the unknown future).
+This setup is designed to scale the canvas/NFT to fit in a variety of wallets.
+This has been an issue I've run into given the lack of consistency between different wallet types we have now, its hard to know what size to set a canvas. Plus going into the unknown future we dont know wallet sizes will be supported or standard. So this is at least an attempt to plan ahead and future-proof a little. 
 
-This template by default scales between a minimum of 320px (GME wallet smallest size) and maximum of 720px (for higher res requirements), but can be modified as needed.
+This template (by default) scales between a minimum of 320px (GME wallet smallest size) and maximum of 720px (for higher res requirements), but can be modified as needed.
 
 <hr>
 
 **Feedback Welcome!! (and appreciated)**
 
-Alex.Delderfield@gmail.com, or
+Alex.Delderfield@gmail.com
 
 https://twitter.com/Alex_ADEdge
+
+[delta-edge.com](http://www.delta-edge.com/)
 
 delta.loopring.eth
 
@@ -21,4 +23,24 @@ delta.loopring.eth
 
 Feel free to use for your own html/canvas NFT needs.
 
-Just credit me somewhere, and be sure to show me any neat NFTs this helps you make :D
+Just credit me **(Alex Delderfield/twitter.com/Alex_ADEdge)** somewhere/sometime, and be sure to show me any neat NFTs this helps you make :D
+
+# Version History & Notes
+
+## Version 0.1 
+
+Completed 21/06/2022 (view an interactive demo version minted here)
+
+Initial version features:
+
+-Dynamic div scaling (to fit L2 wallets past present and hopefully future)
+
+-'Doco'! An example character and dynamic element to demonstrate some interactivity
+
+-A 'smoothly' scaling canvas, using a temp/memory based canvas to instantly copy content back to the primary canvas when rescaling
+
+-'Size' display, the size of the canvas is dynamically displayed in the NFT to help with debugging
+
+-Demo custom font & font loading
+
+***Testing and feedback needed
