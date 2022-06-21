@@ -1,6 +1,8 @@
 # LRC-NFT-DynamicFrame
 A dynamic-frame template for canvas/html-based NFT dev on Loopring L2.
 
+![v0.1IMG](templatethumbnail_01_op.gif)
+
 # About
 This setup is designed to scale the canvas/NFT to fit in a variety of wallets.
 This has been an issue I've run into given the lack of consistency between different wallet types we have now, its hard to know what size to set a canvas. Plus going into the unknown future we dont know wallet sizes will be supported or standard. So this is at least an attempt to plan ahead and future-proof a little. 
