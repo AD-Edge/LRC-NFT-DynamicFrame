@@ -36,7 +36,7 @@ Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/someti
 
 See [**here for a dynamic demo**](http://delta-edge.com/DynamicFrameDemo/) (best to open this demo and resize the window to see the rescale in action)
 
-Or see [**here for a minted LRC-NFT version**](https://lexplorer.io/nfts/0x22b60c6ff19b6590216d5a45a96de404cd1897d3-0-0xfe23138c751c8146f2787738ba63333240508901-0xd5cf18b4c18caabc96610b6cec708b99470140a339dd1eae8697321da0b61a8d-5)
+Or see [**here for a version minted on Loopring L2**](https://lexplorer.io/nfts/0x22b60c6ff19b6590216d5a45a96de404cd1897d3-0-0xfe23138c751c8146f2787738ba63333240508901-0xd5cf18b4c18caabc96610b6cec708b99470140a339dd1eae8697321da0b61a8d-5) (which will auto-scale to 512 in lexplorer)
 
 Initial version features:
 
