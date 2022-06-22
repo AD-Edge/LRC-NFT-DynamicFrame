@@ -50,12 +50,18 @@ Initial version features:
 
 -Demo custom font & font loading
 
-***Testing and feedback needed
+****Testing and feedback needed**
 
 <hr>
 
-Known issues in v0.1:
+**Known issues in v0.1 & questions for v0.2:**
 
 -aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)
 
 -touch screen functionality broken for 'Doco' element
+
+Question TBD - Should the template scale based on horizontal constraints or vertical? (currently set to scale based on the vertical height of the wallet's div which contains the NFT content) but it could alternatively scale based on horizontal space. Or whichever is smallest? 
+
+Question TBD - Maximum (720px) and minimum (320px) sizes, should there be a min and max? Are these values ok as a default?
+
+Question TBD - Any overall design choices which are flawed or I've gotten wrong?
