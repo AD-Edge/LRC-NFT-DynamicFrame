@@ -36,7 +36,7 @@ Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/someti
 
 See [**here for a dynamic demo**](http://delta-edge.com/DynamicFrameDemo/) (best to open this demo and resize the window to see the rescale in action)
 
-Or see [**here for a minted LRC-NFT version**](https://lexplorer.io/nfts/0x22b60c6ff19b6590216d5a45a96de404cd1897d3-0-0xfe23138c751c8146f2787738ba63333240508901-0xd5cf18b4c18caabc96610b6cec708b99470140a339dd1eae8697321da0b61a8d-5)
+Or see [**here for a version minted on Loopring L2**](https://lexplorer.io/nfts/0x22b60c6ff19b6590216d5a45a96de404cd1897d3-0-0xfe23138c751c8146f2787738ba63333240508901-0xd5cf18b4c18caabc96610b6cec708b99470140a339dd1eae8697321da0b61a8d-5) (which will auto-scale to 512 in lexplorer)
 
 Initial version features:
 
@@ -50,12 +50,18 @@ Initial version features:
 
 -Demo custom font & font loading
 
-***Testing and feedback needed
+****Testing and feedback needed**
 
 <hr>
 
-Known issues in v0.1:
+**Known issues in v0.1 & questions for v0.2:**
 
 -aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)
 
 -touch screen functionality broken for 'Doco' element
+
+Question TBD - Should the template scale based on horizontal constraints or vertical? (currently set to scale based on the vertical height of the wallet's div which contains the NFT content) but it could alternatively scale based on horizontal space. Or whichever is smallest? 
+
+Question TBD - Maximum (720px) and minimum (320px) sizes, should there be a min and max? Are these values ok as a default?
+
+Question TBD - Any overall design choices which are flawed or I've gotten wrong?
