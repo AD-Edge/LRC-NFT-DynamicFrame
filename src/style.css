@@ -43,18 +43,23 @@ Which scales with the help of javascript */
   width: 100px;
   top: 0px;
   left: 0px;
-  visibility: visible; 
   z-index: 2; 
+  visibility: visible; 
   pointer-events: none;
 }
 
 /* Example of a simple static element which scales */
 #delta {
+  overflow: visible;
+  top: 42%;
+  left: 1%;
+  position: absolute;
   opacity: 0.2;
-  bottom: 42%;
-  right: 1%;
-  width: 16%;
+  width: 16%;   /* for image version use auto here */
   height: 16%;
+  z-index: 10;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-image:url(iconDelta.png);
 }
 
@@ -62,8 +67,6 @@ Which scales with the help of javascript */
 .container a .image {
   z-index: 12;
   position: absolute;
-  width: 134px;
-  height: 134px;
   background-size: cover;
 }
 .container a .image:before {

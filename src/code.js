@@ -10,7 +10,7 @@ const app = () => {
     
     html = document.documentElement;
     nftBOX = document.getElementById('nftBOX');
-    style = window.getComputedStyle(nftBOX),
+    style = window.getComputedStyle(nftBOX);
     minCanvas = parseInt(style.getPropertyValue('min-height'));
     maxCanvas = parseInt(style.getPropertyValue('max-height'));
     console.log("Minimum Canvas: " + minCanvas);
@@ -92,6 +92,15 @@ function fullScreenEnable() {
     console.log("fullscreen enabled");
 }
 
+function fullScreenDisable() {
+    resizeToDiv();
+    
+    resizeDoco();
+    repositionDoco();
+    
+    console.log("fullscreen disabled");
+}
+
 //Primary resize function for canvas
 //Keeps all dimensions being used relative to nftBOX
 //See nftBOX css for the brains of that part
@@ -107,7 +116,7 @@ function resizeToDiv() {
     tempCanvas.height = canvas.height;
     //Save the canvas on the temp/memory-only canvas
     tempCtx.drawImage(canvas, 0, 0);
-
+    
     //Resize nftBOX based on smallest dimension (height vs width)
     //This is our overall 'containment box'
     if(fullScreenToggle) { //Fullscreen MODE
@@ -137,7 +146,8 @@ function resizeToDiv() {
     //Reset variables
     width = nftBOX.clientWidth;
     height = nftBOX.clientHeight;
-
+    console.log('new height: ' + height + ' width: ' + width); 
+    
     //Draw saved canvas back right away
     ctx.drawImage(tempCanvas, 0, 0);
 }
@@ -163,10 +173,13 @@ function handleMouseEvents() {
             doco.src = 'src/doco_hover_ops.gif';
         }
         if(fullScreenOver) {
+            //toggle to fullscreen
             if(!fullScreenToggle) {
-                //toggle to fullscreen
                 fullScreenToggle = true;
                 fullScreenEnable();
+            } else {
+                fullScreenToggle = false;
+                fullScreenDisable();
             }
         }
     };
@@ -202,21 +215,27 @@ function renderLoop() {
     //Draw Title text
     ctx.fillStyle = '#303030';
     ctx.textAlign = "center";
-    ctx.font = width/26 + 'px retroPixel';
-    ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*width);
-    ctx.fillText("TEMPLATE 0.1.2", 0.5*width, 0.16*width);
+    ctx.font = height/26 + 'px retroPixel';
+    ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
+    ctx.fillText("TEMPLATE 0.1.2", 0.5*width, 0.16*height);
     //Draw custom red text for min/max sizes
-    if((width <= minCanvas) || (width >=maxCanvas)) {
+    if(fullScreenToggle) {
         ctx.fillStyle = '#FF4444';
-        ctx.fillText(width, 0.60*width, 0.88*width);
+        ctx.fillText('FULLSCREEN', 0.5*width, 0.88*height);
     } else {
+        if((width <= minCanvas) || (width >=maxCanvas)) {
+            ctx.fillStyle = '#FF4444';
+            ctx.fillText(width, 0.60*width, 0.88*height);
+        } else {
+            ctx.fillStyle = '#303030';
+            ctx.fillText(width, 0.60*width, 0.88*height);
+        }
+        //Display current canvas size
         ctx.fillStyle = '#303030';
-        ctx.fillText(width, 0.60*width, 0.88*width);
+        ctx.fillText("SIZE: ", 0.46*width, 0.88*height);
     }
-    //Display current canvas size
     ctx.fillStyle = '#303030';
-    ctx.fillText("SIZE: ", 0.46*width, 0.88*width);
-    ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*width);
+    ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
 
     //Draw arrows scale icon
     ctx.drawImage(imgScaleIcon, 0, 0, width, height);
@@ -226,10 +245,10 @@ function renderLoop() {
     if(docoDrag) {
         ctx.fillStyle = 'rgba(240, 140, 140, 0.4)';
         //determine if mouse is over doco select area
-        ctx.rect((docoX*width)+(0.02*width), docoY*width+0, doco.width-(0.04*width), doco.height+(0.01*width));
+        ctx.rect((docoX*width)+(0.02*width), docoY*height+0, doco.width-(0.04*width), doco.height+(0.01*height));
         ctx.fill();
     } else {
-        ctx.rect((docoX*width)+(0.04*width), docoY*width+(0.02*width), doco.width-(0.08*width), doco.height-(0.04*width));
+        ctx.rect((docoX*width)+(0.04*width), docoY*height+(0.02*height), doco.width-(0.08*width), doco.height-(0.04*height));
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(240, 140, 140, 0.75)' : 'rgba(240, 140, 140, 0)';
         ctx.isPointInPath(mouse.x, mouse.y) ? overDoco=true : overDoco=false;
@@ -239,12 +258,12 @@ function renderLoop() {
     //Draw and Calculate select area Fullscreen button
     ctx.beginPath();
     ctx.fillStyle = 'rgba(100, 100, 240, 0.5)';
-    ctx.rect((0.80*width), 0.80*width, 0.18*width, 0.18*width);
+    ctx.rect((0.80*width), 0.80*height, 0.18*width, 0.18*height);
     //determine if mouse is over select area
     ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
     ctx.fill();
     if(fullScreenOver) {
-        ctx.rect((0.78*width), 0.78*width, 0.20*width, 0.20*width);
+        ctx.rect((0.78*width), 0.78*height, 0.20*width, 0.20*height);
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 1)' : 'rgba(100, 140, 240, 0)';
         ctx.fill();
