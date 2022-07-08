@@ -2,7 +2,8 @@ html,
 body {
   width: 100%;
   height: 100%;
-  margin: 0px;
+  margin: auto auto;
+  padding: 5px;
   overflow: hidden; /*  Disable scrollbars */
   display: block; /* No floating content on sides */
   background-color: #222222;
@@ -13,14 +14,10 @@ body {
   position: absolute;
   z-index: 8;
   opacity: 1;
-  min-height: 320px;
-  min-width: 320px;
+  min-height: 64px;
+  min-width: 64px;
   max-height: 720px;
   max-width: 720px;
-  height: 100%;
-  aspect-ratio: 1/1;
-  top: 0px;
-  left: 0px;
   /* disable canvas to see outline, good for debugging */
   outline: 2px dashed #DDDDFF;
   outline-offset: -6px;
