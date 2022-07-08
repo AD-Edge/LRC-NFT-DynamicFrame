@@ -76,7 +76,7 @@ window.onresize = function()
     if(fullScreenEnable) {
         fullScreenEnable();
     } else {
-        resizeToDiv(canvas);
+        resizeToDiv();
     }
     //Doco resize
     resizeDoco();
@@ -84,7 +84,7 @@ window.onresize = function()
 }
 
 function fullScreenEnable() {
-    resizeToDiv(body);
+    resizeToDiv();
     
     resizeDoco();
     repositionDoco();
@@ -95,7 +95,7 @@ function fullScreenEnable() {
 //Primary resize function for canvas
 //Keeps all dimensions being used relative to nftBOX
 //See nftBOX css for the brains of that part
-function resizeToDiv(canvas) {
+function resizeToDiv() {
     //console.log('html height: ' + html.clientHeight + ' width: ' + html.clientWidth); 
     console.log('html height: ' + html.clientHeight + ' width: ' + html.clientWidth); 
     console.log('canvas height: ' + canvas.clientHeight + ' width: ' + canvas.clientWidth); 
@@ -110,13 +110,23 @@ function resizeToDiv(canvas) {
 
     //Resize nftBOX based on smallest dimension (height vs width)
     //This is our overall 'containment box'
-    if (html.clientHeight < html.clientWidth) {
-        nftBOX.style.width = (html.clientHeight-20) + 'px';
-        nftBOX.style.height = (html.clientHeight-20) + 'px';
-    } else  {
+    if(fullScreenToggle) { //Fullscreen MODE
+        //Unset constraints on nftBOX
+        nftBOX.style.maxWidth = '100%';
+        nftBOX.style.maxHeight = '100%';
+
+        //Set to max available dimension
         nftBOX.style.width = (html.clientWidth-20) + 'px';
-        nftBOX.style.height = (html.clientWidth-20) + 'px';
-    } 
+        nftBOX.style.height = (html.clientHeight-20) + 'px';
+    } else { //If NOT-Fullscreen MODE
+        if (html.clientHeight < html.clientWidth) {
+            nftBOX.style.width = (html.clientHeight-20) + 'px';
+            nftBOX.style.height = (html.clientHeight-20) + 'px';
+        } else  {
+            nftBOX.style.width = (html.clientWidth-20) + 'px';
+            nftBOX.style.height = (html.clientWidth-20) + 'px';
+        } 
+    }
 
     //Reset canvas dimensions
     canvas.width = nftBOX.clientWidth;
