@@ -99,8 +99,11 @@ function fullScreenEnable() {
 }
 function fullScreenDisable() {
     //reset constraints 
+    body.style.padding = '5px';
     nftBOX.style.maxWidth = maxCanvas + 'px';
     nftBOX.style.maxHeight = maxCanvas + 'px';
+    nftBOX.style.minWidth = minCanvas + 'px';
+    nftBOX.style.minHeight = minCanvas + 'px';
 
     resizeToDiv();
     
@@ -128,20 +131,24 @@ function resizeToDiv() {
     //Resize nftBOX based on smallest dimension (height vs width)
     //This is our overall 'containment box'
     if(fullScreenToggle) { //Fullscreen MODE
+        //unset padding on html body
+        body.style.padding = '0px';
         //Unset constraints on nftBOX
         nftBOX.style.maxWidth = '100%';
         nftBOX.style.maxHeight = '100%';
-        
+        nftBOX.style.minWidth = '100%';
+        nftBOX.style.minHeight = '100%';
+
         //Set to max available dimension
-        nftBOX.style.width = (html.clientWidth-20) + 'px';
-        nftBOX.style.height = (html.clientHeight-20) + 'px';
+        nftBOX.style.width = (html.clientWidth) + 'px';
+        nftBOX.style.height = (html.clientHeight) + 'px';
     } else { //If NOT-Fullscreen MODE
         if (html.clientHeight < html.clientWidth) {
-            nftBOX.style.width = (html.clientHeight-20) + 'px';
-            nftBOX.style.height = (html.clientHeight-20) + 'px';
+            nftBOX.style.width = (html.clientHeight-10) + 'px';
+            nftBOX.style.height = (html.clientHeight-10) + 'px';
         } else  {
-            nftBOX.style.width = (html.clientWidth-20) + 'px';
-            nftBOX.style.height = (html.clientWidth-20) + 'px';
+            nftBOX.style.width = (html.clientWidth-10) + 'px';
+            nftBOX.style.height = (html.clientWidth-10) + 'px';
         } 
     }
 
@@ -221,6 +228,11 @@ function renderLoop() {
     //Refresh canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    //Draw arrows scale icon (with opacity)
+    ctx.globalAlpha = 0.25;
+    ctx.drawImage(imgScaleIcon, 0, 0, width, height);
+    ctx.globalAlpha = 1;
+    
     //Draw Title text
     ctx.fillStyle = '#303030';
     ctx.textAlign = "center";
@@ -247,9 +259,6 @@ function renderLoop() {
     ctx.fillStyle = '#303030';
     ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
 
-    //Draw arrows scale icon
-    ctx.drawImage(imgScaleIcon, 0, 0, width, height);
-    
     //Draw and Calculate select area for Doco
     ctx.beginPath();
     if(docoDrag) {
