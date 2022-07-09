@@ -36,9 +36,11 @@ Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/someti
 
 -Resizing of nftBOX element (main container) based on whichever dimension is smallest (width vs height). This means the NFT will now resize based on either a horizontal OR vertical constraint being the smallest, rather than only the vertical height as it was in v0.1 (typical to web dev I found there was no standard implemented here, some sites/wallets constrain the size of the NFT based on width, some on height, so the best solution is to allow for both). Note that doing this with pure CSS is a nightmare, so I'm just brute-forcing the resize with Javascript now
 
--Fullscreen toggle button added (some issues with aspect ratio scaling of elements present), which further aids future-proofing. This also breaks the size limitations making the template more flexible
+-Fullscreen toggle button added which further aids future-proofing. This also breaks the size limitations making the template more flexible
 
 -NFT scale limits also changed, minimum size is now 64px, maximum size is still 720px (but of course is overridden when in fullscreen mode)
+
+-Reworked delta symbol/link example, also disables when doco element is being dragged
 
 -Some minor fixes and improvements to various elements
 
