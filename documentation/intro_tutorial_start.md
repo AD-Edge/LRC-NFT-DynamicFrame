@@ -18,11 +18,11 @@ Check out the sections below to get started:
 
 # Table of Contents
 
-0) &#x1F537; [Setup & Development Environment for NFT Dev](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_00_dev_setup/intro_00_dev_setup.md)
+0) &#x1F537; [Setup & Requirements for NFT Development](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_00_dev_setup/intro_00_dev_setup.md)
 
-1) &#x1F536; [Template Files & Folder Structure Explained](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_01_files_explained/intro_01_files_explained.md)
+1) &#x1F536; [Template File(s) Explained](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_01_files_explained/intro_01_files_explained.md)
 
-2) &#x1F536;  [Making a Simple Edit for a simple NFT](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_02_a_simple_edit/intro_02_a_simple_edit.md)
+2) &#x1F536;  [Making Simple Edits for a Simple NFT](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_02_a_simple_edit/intro_02_a_simple_edit.md)
 
 3) &#x1F536;  [Extras & More Advanced Edits for More Advanced NFTs](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_03_extra_edits/intro_03_a_simple_edit.md)
 
