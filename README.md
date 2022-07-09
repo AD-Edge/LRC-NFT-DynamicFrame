@@ -32,6 +32,16 @@ Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/someti
 
 # Version History & Notes
 
+## Version 0.2 (WIP)
+
+-Resizing of nftBOX element (main container) based on whichever dimension is smallest (width vs height). This means the NFT will now resize based on either a horizontal OR vertical constraint being the smallest, rather than only the vertical height as it was in v0.1 (typical to web dev I found there was no standard implemented here, some sites/wallets constrain the size of the NFT based on width, some on height, so the best solution is to allow for both). Note that doing this with pure CSS is a nightmare, so I'm just brute-forcing the resize with Javascript now
+
+-Fullscreen toggle button added (some issues with aspect ratio scaling of elements present), which further aids future-proofing. This also breaks the size limitations making the template more flexible
+
+-NFT scale limits also changed, minimum size is now 64px, maximum size is still 720px (but of course is overridden when in fullscreen mode)
+
+-Some minor fixes and improvements to various elements
+
 ## Version 0.1 (21/06/2022)
 
 See [**here for a dynamic demo**](http://delta-edge.com/DynamicFrameDemo/) (best to open this demo and resize the window to see the rescale in action)
@@ -56,12 +66,12 @@ Initial version features:
 
 **Known issues in v0.1 & questions for v0.2:**
 
--aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)
+~~-aspect-ratio not supported in IE (fine in Chrome/Firefox/Edge)~~
 
 -touch screen functionality broken for 'Doco' element
 
-Question TBD - Should the template scale based on horizontal constraints or vertical? (currently set to scale based on the vertical height of the wallet's div which contains the NFT content) but it could alternatively scale based on horizontal space. Or whichever is smallest? 
+~~Question TBD - Should the template scale based on horizontal constraints or vertical? (currently set to scale based on the vertical height of the wallet's div which contains the NFT content) but it could alternatively scale based on horizontal space. Or whichever is smallest?~~
 
-Question TBD - Maximum (720px) and minimum (320px) sizes, should there be a min and max? Are these values ok as a default?
+~~Question TBD - Maximum (720px) and minimum (320px) sizes, should there be a min and max? Are these values ok as a default?~~
 
 Question TBD - Any overall design choices which are flawed or I've gotten wrong?
