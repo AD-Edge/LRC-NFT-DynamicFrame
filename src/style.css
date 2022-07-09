@@ -1,3 +1,4 @@
+/* Main document body */
 body {
   width: 100%;
   height: 100%;
@@ -8,7 +9,7 @@ body {
   background-color: #222222;
 }
 
-/* !!Main Dimension Min/Max set here!! */
+/* !!Main NFT Min/Max Dimensions set here!! */
 #nftBOX {
   position: absolute;
   z-index: 8;
@@ -22,7 +23,7 @@ body {
   outline-offset: -6px;
 }
 
-/* Primary canvas to draw to */
+/* Primary canvas we draw to */
 #canvasMain {
   position: absolute;
   z-index: 1;
@@ -34,8 +35,8 @@ body {
   background-color: #8d8d8d;
 }
 
-/* Example of a dynamic element 
-Which scales with the help of javascript */
+/* Example of a dynamic element which 
+scales with the help of javascript */
 #doco {
   position: absolute;
   height: 100px;
@@ -47,41 +48,51 @@ Which scales with the help of javascript */
   pointer-events: none;
 }
 
-/* Example of a simple static element which scales */
-#delta {
-  overflow: visible;
-  top: 42%;
-  left: 1%;
+/* Example of a simple static 
+image/link element which scales */
+#container {
   position: absolute;
-  opacity: 0.2;
-  width: 16%;   /* for image version use auto here */
-  height: 16%;
-  z-index: 10;
-  /* background-size: contain;
-  background-repeat: no-repeat;
-  background-image:url(iconDelta.png); */
-}
-
-/* Colourful hover for images */
-.container a .image {
+  pointer-events: all;
+  top: 44%;
+  right: 1.25%;
   z-index: 12;
-  position: absolute;
-  background-size: cover;
+  width: 12%;
+/*we dont need this getting too big*/
+  max-width: 80px;
 }
-.container a .image:before {
+#container:hover .overlay {
+  opacity: 0.8;
+}
+/*image class for static image*/
+.image {
+  display: block;
+  width: 100%;
+  opacity: 0.25;
+  height: auto;
+}
+/*link overlay*/
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
   opacity: 0;
-  content: '';
+  transition: .5s ease;
+  background-color: #1c60ff; /*Loopring Blue*/
+}
+/*link text for overlay*/
+.text {
+  color: white;
+  /*Dynamically scale font based on window*/
+  font-size: calc(1.5vw + 1.5vh);
   position: absolute;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  bottom: 0px;
-  background-color: #1c60ff; /* Loopring Blue */
-  mix-blend-mode: multiply;
-  -webkit-transition: opacity .25s ease;
-  transition: opacity .25s ease;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
-.container a:hover .image:before {
-  opacity: 0.85;
-}
-
