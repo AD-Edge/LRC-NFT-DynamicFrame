@@ -8,7 +8,7 @@ This template is designed to scale a html/canvas NFT to display at the ideal siz
 
 This has been an issue I've run into given the lack of consistency between different wallet types we have now, its hard to know what size to set a canvas - so why not dynamically scale it for any wallet specifications?? Going into the future we dont know wallet sizes will be supported or standard. So this is my setup to plan ahead and future-proof a little for canvas/html based NFTs.
 
-This template (by default) scales between a minimum of 320px (GME wallet display size as of JUNE '22) and maximum of 720px (for higher res requirements), but it can be modified easily as needed.
+This template (by default) scales between a minimum of 64px (note the GME wallet display size as of JUNE '22 is 320px) and maximum of 720px (for higher res requirements), but it can be modified easily as needed. **As of v0.2** Ive added fullscreen functionality to the template as well, which overrides any of these limits and fills the entire area the NFT is hosted within.
 
 <hr>
 
