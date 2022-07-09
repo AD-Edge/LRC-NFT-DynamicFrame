@@ -2,13 +2,15 @@
 
 **Note: This tutorial is not yet complete! - I'm working on it :)
 
-An intro-tutorial covering setup -> how html/canvas NFTs files & this NFT template work -> simple edits to the base template and finally minting the NFT itself - all on Loopring Layer2!
+An introduction tutorial covering: Initial setup & what you need to get started -> how html/canvas NFTs & the **LRC-NFT-DynamicFrame** template works -> simple edits to the base template and finally minting the NFT itself - all on Loopring Layer2! ([see below](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial.md#whats-involved-in-each-section-at-a-glance) for a more detailed breakdown)
 
-This tutorial covers using my **LRC-NFT-DynamicFrame** template to get up and running building your own interactive NFTs. Want to make and sell text adventure games? Or a pacman clone? Or some kind of puzzle? Or display a product or project in a way which lets the owner/user of the NFT interact hands on? Thats what this tutorial is all about!
+This tutorial covers using the **LRC-NFT-DynamicFrame** template to get up and running building your own interactive NFTs! Want to produce and sell text adventure games? Or a pacman clone? Some kind of mind-bending puzzle for touch screen devices? Or display a product/project in a way which lets the owner of the NFT interact directly with your creation? These are the kinds of ideas this tutorial should help you get started working towards!
 
-My **LRC-NFT-DynamicFrame** template is designed to act as a 'standard' or foundation for any kind of html/canvas NFT. Theres a variety of design issues to solve when it comes to having an NFT which fits into L2 wallets past, present and future. I wanted to solve those issues and future proof this template so no one else has to waste time on it. So whether youre new to web dev entirely, never minted an NFT on L2 before (or at all), or if youre just wanting to see how this template works down at a code level - this tutorial will cover these topics!
+My **LRC-NFT-DynamicFrame** template is designed to act as a 'standard' or foundation for any kind of html/canvas NFT. Theres a variety of design issues to solve when it comes to building an NFT which 'fits' into L2 wallets past, present and future (theres already enough variety in sizes and constraints). I wanted to solve those issues and future proof this template so no one else has to waste time on these issues. Less time fighting with CSS -> more time coding fun things! :) So whether youre new to web dev entirely, never minted an NFT on L2 before (or at all), or if youre just wanting to see how this template works down at a code level - this tutorial will cover these topics!
 
 ![TutorialIMG](imagehere.png)
+
+Check out the sections below to get started:
 
 <hr>
 
@@ -42,17 +44,17 @@ Progress is listed as:
 
 -Requirements for the tutorial
 
--Setting up your development environment with VSCode
+-Setting up your development environment with VSCode (or whatever really)
 
--Installing a few plugins of note
+-Installing a few handy VSCode plugins
 
 ### 1. Template Files and Folder Structure Explained
 
--Downloading and taking a look at the **LRC-NFT-DynamicFrame** template
+-Download and take a look at the **LRC-NFT-DynamicFrame** template
 
--Learn the differences between html/css/javascript before jumping into modifying code
+-Learn the differences between html/css/javascript before we jump into modifying code
 
--We break apart the template files and see how the template itself is working
+-Break apart the template files and see how the template itself works
 
 ### 2. Making a Simple Edit
 
@@ -64,13 +66,15 @@ Progress is listed as:
 
 -Simple example code for a text adventure game
 
--Example code for loading and image (character)
+-Example code for loading an image (ie a character)
 
 -Example code for moving the character around the screen with key input
 
--Overview of touch controls (supporting mouse input and touch screen devices)
+-Example code for loading sfx
 
--Where to from here? The best places to find more information and tutorials
+-Overview of touch controls (Supporting mouse input and touch screen devices)
+
+-Where to from here? (The best places to find more information and tutorials)
 
 ### 4. Minting the NFT on L2 Loopring
 
