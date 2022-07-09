@@ -19,18 +19,8 @@ const app = () => {
     console.log("Maximum Canvas: " + maxCanvas);
     console.log("Padding set to: " + padding);
 
-    //Find Doco example element via ID
-    //Doco is a friendly gif in the html layout, to demonstrate some other kind of interactivity
-    doco = document.getElementById("doco");
-
-    //Get Delta/link example element
-    deltaContainer = document.getElementById("container");
-
     //Call resize functions on setup so canvas is happy from the start
     resizeToDiv();
-    //Setup doco character example
-    resizeDoco();
-    repositionDoco();
 
     //Preload custom font and kick off main processes
     var f = new FontFace('retroPixel', 'url(./src/EarlyGameBoy.ttf)');
@@ -50,9 +40,6 @@ var minCanvas;
 var maxCanvas;
 var padding;
 
-//Images/icons
-var imgScaleIcon = new Image();
-imgScaleIcon.src = 'src/canvas_scale.png'
 //Load images for fullscreen toggle button
 var imgFullScreenOpen = new Image();
 var imgFullScreenClose = new Image();
@@ -69,14 +56,6 @@ var renderInterval;
 var fullScreenToggle = false;
 var fullScreenOver = false;
 
-//Doco Character (interactivity example)
-var doco = null;
-var overDoco = false;
-var docoDrag = false;
-var docoScale = 0.25; //Scale Doco here
-var docoX = 0.38; //Starting x position of Doco
-var docoY = 0.38; //Starting y position of Doco
-
 // Make a memory only canvas for redraw 
 var tempCanvas = document.createElement('canvas');
 var tempCtx = tempCanvas.getContext('2d');
@@ -92,9 +71,6 @@ window.onresize = function()
     } else {
         resizeToDiv();
     }
-    //Doco resize
-    resizeDoco();
-    repositionDoco();
 }
 
 //Fullscreen functions
@@ -103,9 +79,6 @@ function fullScreenEnable() {
     paddingVal = 0;
     //resize elements
     resizeToDiv();
-    resizeDoco();
-    repositionDoco();
-    //console.log("fullscreen enabled");
 }
 function fullScreenDisable() {
     //add padding back
@@ -118,9 +91,6 @@ function fullScreenDisable() {
     nftBOX.style.minHeight = minCanvas + 'px';
 
     resizeToDiv();
-    resizeDoco();
-    repositionDoco();
-    //console.log("fullscreen disabled");
 }
 
 //Primary resize function for canvas
@@ -179,28 +149,9 @@ function resizeToDiv() {
     ctx.drawImage(tempCanvas, 0, 0);
 }
 
-//Resize Doco Character Icon
-function resizeDoco() {
-    doco.style.width = docoScale*width/aspectRatio + 'px';
-    doco.style.height = docoScale*height + 'px';
-}
-//Update Doco Position
-function repositionDoco() {
-    doco.style.left = docoX*canvas.width + 'px';
-    doco.style.top = docoY*canvas.height + 'px';
-}
-
 //Handle Mouse/Touch Events
 function handleMouseEvents() {
     canvas.onpointerdown = function(e) {
-        //Mouse click if hovering over Doco element
-        if(overDoco) {
-            docoDrag = true;
-            //Set kawaii gif
-            doco.src = 'src/doco_hover_ops.gif';
-            //disable delta link (gets in the way when dragging otgherwise)
-            deltaContainer.style.pointerEvents = "none";
-        }
         if(fullScreenOver) {
             //toggle to fullscreen
             if(!fullScreenToggle) {
@@ -217,24 +168,12 @@ function handleMouseEvents() {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
         
-        //Change Doco position on drag event
-        if(docoDrag) {
-            docoX = ((mouse.x - (docoScale*width)/2) /canvas.width) ;
-            docoY = ((mouse.y - (docoScale*height)/2) /canvas.height);
-            repositionDoco();
-        }
     };
     canvas.onpointerup = function(e) {
-        //Reset Doco
-        if(docoDrag) {
-            docoDrag = false;
-            doco.src = 'src/doco_spin_ops.gif'
-            //re-enable delta link
-            deltaContainer.style.pointerEvents = "all";
-        }
+    
     };
     canvas.onpointerout = function(e) {
-        overDoco = false;
+
     };
 }
 
@@ -268,54 +207,13 @@ function renderLoop() {
     //Refresh canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    //Draw arrows scale icon (with opacity)
-    ctx.globalAlpha = 0.25;
-    ctx.drawImage(imgScaleIcon, 0, 0, width, height);
-    ctx.globalAlpha = 1;
-    
     //Draw Title text
     ctx.fillStyle = '#303030';
     ctx.textAlign = "center";
     ctx.font = height/26 + 'px retroPixel';
-    ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
-    ctx.fillText("TEMPLATE 0.1.3", 0.5*width, 0.16*height);
-    //Draw custom red text for min/max sizes
-    if(fullScreenToggle) {
-        ctx.fillStyle = '#FF4444';
-        ctx.fillText('FULLSCREEN', 0.5*width, 0.88*height);
-    } else {
-        if((width <= minCanvas) || (width >=maxCanvas)) {
-            ctx.fillStyle = '#FF4444';
-            ctx.fillText(width, 0.60*width, 0.88*height);
-        } else {
-            ctx.fillStyle = '#303030';
-            ctx.fillText(width, 0.60*width, 0.88*height);
-        }
-        //Display current canvas size
-        ctx.fillStyle = '#303030';
-        ctx.fillText("SIZE: ", 0.46*width, 0.88*height);
-        
-    }
-    ctx.fillStyle = '#303030';
-    ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
-
-    //Draw and Calculate select area for Doco
-    ctx.beginPath();
-    if(docoDrag) {
-        ctx.fillStyle = 'rgba(240, 140, 140, 0.4)';
-        //determine if mouse is over doco select area
-        ctx.rect((docoX*width)+(0.02*width), docoY*height+0, doco.width-(0.04*width), doco.height+(0.01*height));
-        ctx.fill();
-    } else {
-        ctx.rect((docoX*width)+(0.04*width), docoY*height+(0.02*height), doco.width-(0.08*width), doco.height-(0.04*height));
-        //determine if mouse is over doco select area
-        ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(240, 140, 140, 0.75)' : 'rgba(240, 140, 140, 0)';
-        ctx.isPointInPath(mouse.x, mouse.y) ? overDoco=true : overDoco=false;
-        ctx.fill();
-    }
+    ctx.fillText("*BLANK TEMPLATE*", 0.5*width, 0.12*height);
 
     drawFullScreenButton();
-
 }
 
 //Start overall processeses
