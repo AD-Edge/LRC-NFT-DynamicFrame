@@ -58,9 +58,9 @@ Which scales with the help of javascript */
   width: 16%;   /* for image version use auto here */
   height: 16%;
   z-index: 10;
-  background-size: contain;
+  /* background-size: contain;
   background-repeat: no-repeat;
-  background-image:url(iconDelta.png);
+  background-image:url(iconDelta.png); */
 }
 
 /* Colourful hover for images */
@@ -85,3 +85,4 @@ Which scales with the help of javascript */
 .container a:hover .image:before {
   opacity: 0.85;
 }
+

@@ -21,7 +21,7 @@ const app = () => {
     doco = document.getElementById("doco");
 
     //Call resize functions on setup so canvas is happy from the start
-    resizeToDiv(canvas); 
+    resizeToDiv(); 
     //Setup doco character example
     resizeDoco();
     repositionDoco();
@@ -46,10 +46,16 @@ var maxCanvas;
 //Images/icons
 var imgScaleIcon = new Image();
 imgScaleIcon.src = 'src/canvas_scale.png'
+//Load images for fullscreen toggle button
+var imgFullScreenOpen = new Image();
+var imgFullScreenClose = new Image();
+imgFullScreenOpen.src = 'src/fullscreenOpen.png';
+imgFullScreenClose.src = 'src/fullscreenClose.png';
 
 //Setup main variables
 var width = 0;
 var height = 0;
+var aspectRatio = 0;
 var renderInterval;
 
 var fullScreenToggle = false;
@@ -83,22 +89,24 @@ window.onresize = function()
     repositionDoco();
 }
 
+//Fullscreen functions
 function fullScreenEnable() {
     resizeToDiv();
     
     resizeDoco();
     repositionDoco();
-    
-    console.log("fullscreen enabled");
+    //console.log("fullscreen enabled");
 }
-
 function fullScreenDisable() {
+    //reset constraints 
+    nftBOX.style.maxWidth = maxCanvas + 'px';
+    nftBOX.style.maxHeight = maxCanvas + 'px';
+
     resizeToDiv();
     
     resizeDoco();
     repositionDoco();
-    
-    console.log("fullscreen disabled");
+    //console.log("fullscreen disabled");
 }
 
 //Primary resize function for canvas
@@ -123,7 +131,7 @@ function resizeToDiv() {
         //Unset constraints on nftBOX
         nftBOX.style.maxWidth = '100%';
         nftBOX.style.maxHeight = '100%';
-
+        
         //Set to max available dimension
         nftBOX.style.width = (html.clientWidth-20) + 'px';
         nftBOX.style.height = (html.clientHeight-20) + 'px';
@@ -146,6 +154,7 @@ function resizeToDiv() {
     //Reset variables
     width = nftBOX.clientWidth;
     height = nftBOX.clientHeight;
+    aspectRatio = width/height;
     console.log('new height: ' + height + ' width: ' + width); 
     
     //Draw saved canvas back right away
@@ -233,6 +242,7 @@ function renderLoop() {
         //Display current canvas size
         ctx.fillStyle = '#303030';
         ctx.fillText("SIZE: ", 0.46*width, 0.88*height);
+        
     }
     ctx.fillStyle = '#303030';
     ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
@@ -257,16 +267,22 @@ function renderLoop() {
 
     //Draw and Calculate select area Fullscreen button
     ctx.beginPath();
-    ctx.fillStyle = 'rgba(100, 100, 240, 0.5)';
-    ctx.rect((0.80*width), 0.80*height, 0.18*width, 0.18*height);
+    ctx.fillStyle = 'rgba(100, 100, 240, 0.33)';
+    ctx.rect(0.89*width, 0.89*height, 0.10*width, 0.10*height);
     //determine if mouse is over select area
     ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
     ctx.fill();
     if(fullScreenOver) {
-        ctx.rect((0.78*width), 0.78*height, 0.20*width, 0.20*height);
+        ctx.rect(0.89*width, 0.89*height, 0.10*width, 0.10*height);
         //determine if mouse is over doco select area
-        ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 1)' : 'rgba(100, 140, 240, 0)';
+        ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 0.5)' : 'rgba(100, 140, 240, 0)';
         ctx.fill();
+    }
+    //draw fullscreen button in various states
+    if(fullScreenToggle) {
+        ctx.drawImage(imgFullScreenClose, 0.89*width, 0.89*height, 0.10*width, 0.10*height);
+    } else {
+        ctx.drawImage(imgFullScreenOpen, 0.89*width, 0.89*height, 0.10*width/aspectRatio, 0.10*height);
     }
 
 }
