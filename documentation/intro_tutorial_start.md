@@ -24,7 +24,7 @@ Check out the sections below to get started:
 
 2) &#x1F536;  [Making Simple Edits for a Simple NFT](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_02_a_simple_edit/intro_02_a_simple_edit.md)
 
-3) &#x1F536;  [Extras & More Advanced Edits for More Advanced NFTs](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_03_extra_edits/intro_03_a_simple_edit.md)
+3) &#x1F536;  [Advanced Edits for More Advanced NFTs + Extras](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial_03_extra_edits/intro_03_a_simple_edit.md)
 
 4) &#x1F536;  [Minting the NFT on L2 Loopring](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/tree/main/documentation/intro_tutorial_04_minting)
 
