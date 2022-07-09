@@ -87,7 +87,7 @@ image/link element which scales */
 .text {
   color: white;
   /*Dynamically scale font based on window*/
-  font-size: calc(1.5vw + 1.5vh);
+  font-size: calc(1vw + 1vh);
   position: absolute;
   top: 50%;
   left: 50%;
