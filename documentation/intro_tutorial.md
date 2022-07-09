@@ -2,7 +2,9 @@
 
 **Note: This tutorial is not yet complete! - I'm working on it :)
 
-An introduction tutorial covering: Initial setup & what you need to get started -> how html/canvas NFTs & the **LRC-NFT-DynamicFrame** template works -> simple edits to the base template and finally minting the NFT itself - all on Loopring Layer2! ([see below](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial.md#whats-involved-in-each-section-at-a-glance) for a more detailed breakdown)
+## About
+
+An introductory tutorial which covers the following areas: Initial setup & what you need to get started making html/canvas based NFTs -> how html/canvas NFTs & the **LRC-NFT-DynamicFrame** template works -> simple edits to the base template and finally minting the NFT itself - all on Loopring Layer2! ([see below](https://github.com/AD-Edge/LRC-NFT-DynamicFrame/blob/main/documentation/intro_tutorial.md#whats-involved-in-each-section-at-a-glance) for a more detailed breakdown)
 
 This tutorial covers using the **LRC-NFT-DynamicFrame** template to get up and running building your own interactive NFTs! Want to produce and sell text adventure games? Or a pacman clone? Some kind of mind-bending puzzle for touch screen devices? Or display a product/project in a way which lets the owner of the NFT interact directly with your creation? These are the kinds of ideas this tutorial should help you get started working towards!
 
