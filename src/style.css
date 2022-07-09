@@ -1,9 +1,8 @@
-html,
 body {
   width: 100%;
   height: 100%;
-  margin: auto auto;
   padding: 5px;
+  margin: auto auto;
   overflow: hidden; /*  Disable scrollbars */
   display: block; /* No floating content on sides */
   background-color: #222222;

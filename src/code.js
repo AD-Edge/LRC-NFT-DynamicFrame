@@ -3,18 +3,21 @@ const app = () => {
     console.log("LRC-NFT-DynamicFrame [https://github.com/AD-Edge/LRC-NFT-DynamicFrame]");
     
     //Setup Canvas and Elements
+    html = document.documentElement;
     body = document.body;
     canvas = document.getElementById('canvasMain');
     ctx = canvas.getContext("2d");
-    //Get nftBOX values
-    
-    html = document.documentElement;
     nftBOX = document.getElementById('nftBOX');
     style = window.getComputedStyle(nftBOX);
+    
+    //Save values needed
     minCanvas = parseInt(style.getPropertyValue('min-height'));
     maxCanvas = parseInt(style.getPropertyValue('max-height'));
+    padding = parseInt(window.getComputedStyle(body, null).getPropertyValue('padding'));
+    paddingVal = padding;
     console.log("Minimum Canvas: " + minCanvas);
     console.log("Maximum Canvas: " + maxCanvas);
+    console.log("Padding set to: " + padding);
 
     //Find Doco element via ID
     //Doco is a friendly gif in the html layout, to demonstrate some other kind of interactivity
@@ -42,6 +45,7 @@ const app = () => {
 //Min and Max values, set by looking at the CSS values for 'nftBOX' div
 var minCanvas;
 var maxCanvas;
+var padding;
 
 //Images/icons
 var imgScaleIcon = new Image();
@@ -55,6 +59,7 @@ imgFullScreenClose.src = 'src/fullscreenClose.png';
 //Setup main variables
 var width = 0;
 var height = 0;
+var paddingVal = 0;
 var aspectRatio = 0;
 var renderInterval;
 
@@ -79,7 +84,7 @@ const mouse = { x: 0, y: 0 };
 //Called whenever window resizes
 window.onresize = function()
 {
-    if(fullScreenEnable) {
+    if(fullScreenToggle) {
         fullScreenEnable();
     } else {
         resizeToDiv();
@@ -91,15 +96,19 @@ window.onresize = function()
 
 //Fullscreen functions
 function fullScreenEnable() {
+    //remove padding for fullscreen
+    paddingVal = 0;
+    //resize elements
     resizeToDiv();
-    
     resizeDoco();
     repositionDoco();
     //console.log("fullscreen enabled");
 }
 function fullScreenDisable() {
+    //add padding back
+    paddingVal = padding;
     //reset constraints 
-    body.style.padding = '5px';
+    body.style.padding = paddingVal + 'px';
     nftBOX.style.maxWidth = maxCanvas + 'px';
     nftBOX.style.maxHeight = maxCanvas + 'px';
     nftBOX.style.minWidth = minCanvas + 'px';
@@ -132,7 +141,7 @@ function resizeToDiv() {
     //This is our overall 'containment box'
     if(fullScreenToggle) { //Fullscreen MODE
         //unset padding on html body
-        body.style.padding = '0px';
+        body.style.padding = paddingVal + 'px';
         //Unset constraints on nftBOX
         nftBOX.style.maxWidth = '100%';
         nftBOX.style.maxHeight = '100%';
@@ -144,11 +153,15 @@ function resizeToDiv() {
         nftBOX.style.height = (html.clientHeight) + 'px';
     } else { //If NOT-Fullscreen MODE
         if (html.clientHeight < html.clientWidth) {
-            nftBOX.style.width = (html.clientHeight-10) + 'px';
-            nftBOX.style.height = (html.clientHeight-10) + 'px';
+            nftBOX.style.width = (html.clientHeight-(paddingVal*2)) + 'px';
+            nftBOX.style.height = (html.clientHeight-(paddingVal*2)) + 'px';
+            console.log("paddingVal: " + paddingVal);
+            console.log("padding: " + padding);
         } else  {
-            nftBOX.style.width = (html.clientWidth-10) + 'px';
-            nftBOX.style.height = (html.clientWidth-10) + 'px';
+            nftBOX.style.width = (html.clientWidth-(paddingVal*2)) + 'px';
+            nftBOX.style.height = (html.clientWidth-(paddingVal*2)) + 'px';
+            console.log("paddingVal: " + paddingVal);
+            console.log("padding: " + padding);
         } 
     }
 
@@ -162,7 +175,7 @@ function resizeToDiv() {
     width = nftBOX.clientWidth;
     height = nftBOX.clientHeight;
     aspectRatio = width/height;
-    console.log('new height: ' + height + ' width: ' + width); 
+    //console.log('new height: ' + height + ' width: ' + width); 
     
     //Draw saved canvas back right away
     ctx.drawImage(tempCanvas, 0, 0);
