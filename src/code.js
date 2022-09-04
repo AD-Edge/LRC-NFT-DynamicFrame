@@ -13,11 +13,18 @@ const app = () => {
     //Retrieve and save values needed
     minCanvas = parseInt(style.getPropertyValue('min-height'));
     maxCanvas = parseInt(style.getPropertyValue('max-height'));
-    padding = parseInt(window.getComputedStyle(body, null).getPropertyValue('padding'));
-    paddingVal = padding;
+    //padding = parseInt(window.getComputedStyle(body, null).getPropertyValue('padding'));
+    //console.log("Padding set to: " + padding);
+    //paddingVal = padding;
     console.log("Minimum Canvas: " + minCanvas);
     console.log("Maximum Canvas: " + maxCanvas);
-    console.log("Padding set to: " + padding);
+
+    //touch and mouse events
+    canvas.addEventListener("touchstart", dragStart, false);
+    canvas.addEventListener("mousedown", dragStart, false);
+    canvas.addEventListener("touchend", dragEnd, false);
+    canvas.addEventListener("mouseup", dragEnd, false);
+    canvas.addEventListener('pointermove', pointerTouchMove, false);
 
     //Find Doco example element via ID
     //Doco is a friendly gif in the html layout, to demonstrate some other kind of interactivity
@@ -99,8 +106,6 @@ window.onresize = function()
 
 //Fullscreen functions
 function fullScreenEnable() {
-    //remove padding for fullscreen
-    paddingVal = 0;
     //resize elements
     resizeToDiv();
     resizeDoco();
@@ -108,10 +113,7 @@ function fullScreenEnable() {
     //console.log("fullscreen enabled");
 }
 function fullScreenDisable() {
-    //add padding back
-    paddingVal = padding;
     //reset constraints 
-    body.style.padding = paddingVal + 'px';
     nftBOX.style.maxWidth = maxCanvas + 'px';
     nftBOX.style.maxHeight = maxCanvas + 'px';
     nftBOX.style.minWidth = minCanvas + 'px';
@@ -142,8 +144,6 @@ function resizeToDiv() {
     //Resize nftBOX based on smallest dimension (height vs width)
     //This is our overall 'containment box'
     if(fullScreenToggle) { //Fullscreen MODE
-        //unset padding on html body
-        body.style.padding = paddingVal + 'px';
         //Unset constraints on nftBOX
         nftBOX.style.maxWidth = '100%';
         nftBOX.style.maxHeight = '100%';
@@ -155,11 +155,11 @@ function resizeToDiv() {
         nftBOX.style.height = (html.clientHeight) + 'px';
     } else { //If NOT-Fullscreen MODE
         if (html.clientHeight < html.clientWidth) {
-            nftBOX.style.width = (html.clientHeight-(paddingVal*2)) + 'px';
-            nftBOX.style.height = (html.clientHeight-(paddingVal*2)) + 'px';
+            nftBOX.style.width = (html.clientHeight) + 'px';
+            nftBOX.style.height = (html.clientHeight) + 'px';
         } else  {
-            nftBOX.style.width = (html.clientWidth-(paddingVal*2)) + 'px';
-            nftBOX.style.height = (html.clientWidth-(paddingVal*2)) + 'px';
+            nftBOX.style.width = (html.clientWidth) + 'px';
+            nftBOX.style.height = (html.clientWidth) + 'px';
         }
     }
 
@@ -190,48 +190,78 @@ function repositionDoco() {
     doco.style.top = docoY*canvas.height + 'px';
 }
 
+
+//Touch and Mouse Functions
+function dragStart(e) { //when the drag starts
+    if (e.type === "touchstart") { //if its a touchscreen
+        //set initial x-cordinate to where it was before drag started
+        // initialX = e.touches[0].clientX - xOffset; 
+        //set initial y-cordinate to where it was before drag started
+        // initialY = e.touches[0].clientY - yOffset; 
+    } else { //if its not a touchscreen (mouse) 
+    }
+
+    //Mouse click if hovering over Doco element
+    if(overDoco) {
+        docoDrag = true;
+        //Set kawaii gif
+        doco.src = 'src/doco_hover_ops.gif';
+        //disable delta link (gets in the way when dragging otgherwise)
+        deltaContainer.style.pointerEvents = "none";
+    }
+}
+function pointerTouchMove(e) {
+    e.preventDefault(); //the user cant do anything else but drag
+    //mouse.x = e.clientX;
+    //mouse.y = e.clientY;
+
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    
+    //Change Doco position on drag event
+    if(docoDrag) {
+        docoX = ((mouse.x - (docoScale*width)/2) /canvas.width) ;
+        docoY = ((mouse.y - (docoScale*height)/2) /canvas.height);
+        repositionDoco();
+    }
+}
+//when the drag ends - ie touch or mouse ends
+//All activation events while releasing on a hover, ie a 'PRESS' event 
+function dragEnd(e) { 
+    //Reset Doco
+    if(docoDrag) {
+        docoDrag = false;
+        doco.src = 'src/doco_spin_ops.gif'
+        //re-enable delta link
+        deltaContainer.style.pointerEvents = "all";
+    }
+
+    if(fullScreenOver) {
+        //toggle to fullscreen
+        if(!fullScreenToggle) {
+            fullScreenToggle = true;
+            fullScreenEnable();
+        } else {
+            fullScreenToggle = false;
+            fullScreenDisable();
+        }
+    }
+}
+
 //Handle Mouse/Touch Events
 function handleMouseEvents() {
     canvas.onpointerdown = function(e) {
-        //Mouse click if hovering over Doco element
-        if(overDoco) {
-            docoDrag = true;
-            //Set kawaii gif
-            doco.src = 'src/doco_hover_ops.gif';
-            //disable delta link (gets in the way when dragging otgherwise)
-            deltaContainer.style.pointerEvents = "none";
-        }
-        if(fullScreenOver) {
-            //toggle to fullscreen
-            if(!fullScreenToggle) {
-                fullScreenToggle = true;
-                fullScreenEnable();
-            } else {
-                fullScreenToggle = false;
-                fullScreenDisable();
-            }
-        }
+        
     };
     canvas.onpointermove = function(e) {
         //Refresh mouse pos
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-        
-        //Change Doco position on drag event
-        if(docoDrag) {
-            docoX = ((mouse.x - (docoScale*width)/2) /canvas.width) ;
-            docoY = ((mouse.y - (docoScale*height)/2) /canvas.height);
-            repositionDoco();
-        }
+       
     };
     canvas.onpointerup = function(e) {
-        //Reset Doco
-        if(docoDrag) {
-            docoDrag = false;
-            doco.src = 'src/doco_spin_ops.gif'
-            //re-enable delta link
-            deltaContainer.style.pointerEvents = "all";
-        }
+       
     };
     canvas.onpointerout = function(e) {
         overDoco = false;
@@ -241,23 +271,25 @@ function handleMouseEvents() {
 //Draw and Calculate select area Fullscreen button
 function drawFullScreenButton() {
     ctx.beginPath();
-    ctx.fillStyle = 'rgba(100, 100, 240, 0.33)';
-    ctx.rect(1*width-(0.11*width/aspectRatio), 0.89*height, 0.10*width/aspectRatio, 0.10*height);
+    ctx.fillStyle = 'rgba(100, 100, 240, 0.25)';
+    ctx.rect(width-80, height-80, 70, 70);
     //determine if mouse is over select area
     ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
     ctx.fill();
+
     if(fullScreenOver) {
-        ctx.rect(1*width-(0.11*width/aspectRatio), 0.89*height, 0.10*width/aspectRatio, 0.10*height);
+        ctx.rect(width-80, height-80, 70, 70);
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 0.5)' : 'rgba(100, 140, 240, 0)';
         ctx.fill();
     }
+
     //draw fullscreen button in various states
     if(fullScreenToggle) {
-        ctx.drawImage(imgFullScreenClose, 1*width-(0.11*width/aspectRatio), 0.89*height, 0.10*width/aspectRatio, 0.10*height);
+        ctx.drawImage(imgFullScreenClose, width-80, height-80, 70, 70);
         //console.log("aspect ratio: " + aspectRatio);
     } else {
-        ctx.drawImage(imgFullScreenOpen, 1*width-(0.11*width/aspectRatio), 0.89*height, 0.10*width/aspectRatio, 0.10*height);
+        ctx.drawImage(imgFullScreenOpen, width-80, height-80, 70, 70);
         //console.log("aspect ratio: " + aspectRatio);
     }
 }
@@ -278,7 +310,7 @@ function renderLoop() {
     ctx.textAlign = "center";
     ctx.font = height/26 + 'px retroPixel';
     ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
-    ctx.fillText("TEMPLATE 0.1.3", 0.5*width, 0.16*height);
+    ctx.fillText("TEMPLATE 0.1.4", 0.5*width, 0.16*height);
     //Draw custom red text for min/max sizes
     if(fullScreenToggle) {
         ctx.fillStyle = '#FF4444';
@@ -316,6 +348,15 @@ function renderLoop() {
 
     drawFullScreenButton();
 
+    
+    //debug mouse/touch pos
+    ctx.globalAlpha = 1.0; //reset global alpha
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(240, 140, 140, 1)';
+    //console.log("mouse: " + mouse.x + ", " + mouse.y);
+    ctx.arc(mouse.x, mouse.y, height*0.02, 0, 2*Math.PI);
+    ctx.fill();
+    
 }
 
 //Start overall processeses
@@ -323,8 +364,10 @@ function startPANEL() {
     //clear render interval if running
     clearInterval(renderInterval);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     //kick off mouse checks
-    handleMouseEvents();
+    //handleMouseEvents();
+
     //set off render process
     renderInterval = setInterval(renderLoop, 20);
 }
