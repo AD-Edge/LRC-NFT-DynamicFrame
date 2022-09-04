@@ -2,7 +2,7 @@
 body {
   width: 100%;
   height: 100%;
-  padding: 5px;
+  padding: 0px;
   margin: auto auto;
   overflow: hidden; /*  Disable scrollbars */
   display: block; /* No floating content on sides */
@@ -19,12 +19,41 @@ body {
   max-height: 720px;
   max-width: 720px;
   /* disable canvas to see outline, good for debugging */
-  outline: 2px dashed #DDDDFF;
+  outline: 4px dashed #DDDDFF;
+  outline-offset: -4px;
+}
+
+#canvasMain {
+  visibility: visible;
+  position: absolute;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #333333;
+  /* border: 4px solid black;     */
+  z-index: 1;
+  /* padding: 0px; */
+  outline: 6px solid #222222;
   outline-offset: -6px;
+  background-color: #8d8d8d;
+  margin: 0 auto;
+}
+
+#containerCanvas {
+  height: 100%;
+  width: 100%;
+  position: absolute; 
+  /* background-color: #445899; */
+}
+
+#innerDIV {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 /* Primary canvas we draw to */
-#canvasMain {
+/* #canvasMain {
   position: absolute;
   z-index: 1;
   opacity: 1;
@@ -33,7 +62,7 @@ body {
   outline: 2px solid #ff7d32;
   outline-offset: -2px;
   background-color: #8d8d8d;
-}
+} */
 
 /* Example of a dynamic element which 
 scales with the help of javascript */

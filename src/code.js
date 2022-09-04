@@ -45,6 +45,13 @@ const app = () => {
     });
 };
 
+//Setup main variables
+var width = 0;
+var height = 0;
+var paddingVal = 0;
+var aspectRatio = 0;
+var renderInterval;
+
 //Min and Max values, set by looking at the CSS values for 'nftBOX' div
 var minCanvas;
 var maxCanvas;
@@ -58,13 +65,6 @@ var imgFullScreenOpen = new Image();
 var imgFullScreenClose = new Image();
 imgFullScreenOpen.src = 'src/fullscreenOpen.png';
 imgFullScreenClose.src = 'src/fullscreenClose.png';
-
-//Setup main variables
-var width = 0;
-var height = 0;
-var paddingVal = 0;
-var aspectRatio = 0;
-var renderInterval;
 
 var fullScreenToggle = false;
 var fullScreenOver = false;
@@ -128,9 +128,9 @@ function fullScreenDisable() {
 //See nftBOX css for the brains of that part
 function resizeToDiv() {
     //console.log('html width: ' + html.clientWidth + ' height: ' + html.clientHeight); 
-    console.log('html width: ' + html.clientWidth + ' height: ' + html.clientHeight); 
-    console.log('canvas width: ' + canvas.clientWidth + ' height: ' + canvas.clientHeight); 
-    console.log('body width: ' + body.clientWidth + ' height: ' + body.clientHeight);
+    // console.log('html width: ' + html.clientWidth + ' height: ' + html.clientHeight); 
+    // console.log('canvas width: ' + canvas.clientWidth + ' height: ' + canvas.clientHeight); 
+    // console.log('body width: ' + body.clientWidth + ' height: ' + body.clientHeight);
     
     //This is needed to preserve image during scaling
     //Resizing the canvas (ie canvas.width = xxx) clears the canvas
@@ -173,7 +173,7 @@ function resizeToDiv() {
     width = nftBOX.clientWidth;
     height = nftBOX.clientHeight;
     aspectRatio = width/height;
-    console.log('*width: ' + width + ' height: ' + height);
+    //console.log('*width: ' + width + ' height: ' + height);
     
     //Draw saved canvas back right away
     ctx.drawImage(tempCanvas, 0, 0);
