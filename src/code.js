@@ -185,7 +185,6 @@ function repositionDoco() {
     doco.style.top = docoY*canvas.height + 'px';
 }
 
-
 //Touch and Mouse Functions
 function dragStart(e) { //when the drag starts
     if (e.type === "touchstart") { //if its a touchscreen
@@ -282,7 +281,7 @@ function renderLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //Draw arrows scale icon (with opacity)
-    ctx.globalAlpha = 0.25;
+    ctx.globalAlpha = 0.5;
     ctx.drawImage(imgScaleIcon, 0, 0, width, height);
     ctx.globalAlpha = 1;
     
