@@ -13,9 +13,6 @@ const app = () => {
     //Retrieve and save values needed
     minCanvas = parseInt(style.getPropertyValue('min-height'));
     maxCanvas = parseInt(style.getPropertyValue('max-height'));
-    //padding = parseInt(window.getComputedStyle(body, null).getPropertyValue('padding'));
-    //console.log("Padding set to: " + padding);
-    //paddingVal = padding;
     console.log("Minimum Canvas: " + minCanvas);
     console.log("Maximum Canvas: " + maxCanvas);
 
@@ -55,14 +52,12 @@ const app = () => {
 //Setup main variables
 var width = 0;
 var height = 0;
-var paddingVal = 0;
 var aspectRatio = 0;
 var renderInterval;
 
 //Min and Max values, set by looking at the CSS values for 'nftBOX' div
 var minCanvas;
 var maxCanvas;
-var padding;
 
 //Images/icons
 var imgScaleIcon = new Image();
@@ -249,24 +244,10 @@ function dragEnd(e) {
     }
 }
 
-//Handle Mouse/Touch Events
-function handleMouseEvents() {
-    canvas.onpointerdown = function(e) {
-        
-    };
-    canvas.onpointermove = function(e) {
-        //Refresh mouse pos
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-       
-    };
-    canvas.onpointerup = function(e) {
-       
-    };
-    canvas.onpointerout = function(e) {
-        overDoco = false;
-    };
-}
+//Todo - handle pointer leaving canvas
+// canvas.onpointerout = function(e) {
+//     overDoco = false;
+// };
 
 //Draw and Calculate select area Fullscreen button
 function drawFullScreenButton() {
@@ -310,7 +291,7 @@ function renderLoop() {
     ctx.textAlign = "center";
     ctx.font = height/26 + 'px retroPixel';
     ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
-    ctx.fillText("TEMPLATE 0.1.4", 0.5*width, 0.16*height);
+    ctx.fillText("TEMPLATE 0.1.5", 0.5*width, 0.16*height);
     //Draw custom red text for min/max sizes
     if(fullScreenToggle) {
         ctx.fillStyle = '#FF4444';
@@ -348,7 +329,6 @@ function renderLoop() {
 
     drawFullScreenButton();
 
-    
     //debug mouse/touch pos
     ctx.globalAlpha = 1.0; //reset global alpha
     ctx.beginPath();
@@ -364,9 +344,6 @@ function startPANEL() {
     //clear render interval if running
     clearInterval(renderInterval);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    //kick off mouse checks
-    //handleMouseEvents();
 
     //set off render process
     renderInterval = setInterval(renderLoop, 20);
