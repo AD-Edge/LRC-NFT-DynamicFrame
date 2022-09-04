@@ -3,6 +3,16 @@ A dynamic-frame template for canvas/html-based NFT dev on Loopring L2.
 
 ![v0.1IMGDEMO](dynamic_resize01op2.gif)
 
+# Getting Started
+
+Want to learn how to make your first interactive NFT? 
+
+Or just want an intro to get started with the Dynamic Frame NFT Template? 
+
+[tutorial coming soon]
+
+<hr>
+
 # About
 This template is designed to scale a html/canvas NFT to display at the ideal size in _any_ wallet.
 
@@ -11,6 +21,7 @@ This has been an issue I've run into given the lack of consistency between diffe
 This template (by default) scales between a minimum of 64px (note the GME wallet display size as of JUNE '22 is 320px) and maximum of 720px (for higher res requirements), but it can be modified easily as needed. **As of v0.2** Ive added fullscreen functionality to the template as well, which overrides any of these limits and fills the entire area the NFT is hosted within.
 
 <hr>
+
 
 **Feedback Welcome!! (and appreciated)**
 
@@ -36,13 +47,15 @@ Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/someti
 
 -Resizing of nftBOX element (main container) based on whichever dimension is smallest (width vs height). This means the NFT will now resize based on either a horizontal OR vertical constraint being the smallest, rather than only the vertical height as it was in v0.1 (typical to web dev I found there was no standard implemented here, some sites/wallets constrain the size of the NFT based on width, some on height, so the best solution is to allow for both). Note that doing this with pure CSS is a nightmare, so I'm just brute-forcing the resize with Javascript now
 
--Fullscreen toggle button added which further aids future-proofing. This also breaks the size limitations making the template more flexible
+-Fullscreen toggle button added which further aids future-proofing. This also breaks the size limitations when enabled - making the template more flexible overall
 
 -NFT scale limits also changed, minimum size is now 64px, maximum size is still 720px (but of course is overridden when in fullscreen mode)
 
 -Reworked delta symbol/link example, also disables when doco element is being dragged
 
 -Some minor fixes and improvements to various elements
+
+-Centering of main div within body element, so your NFT will center on any page its rendered on (looking at you, new GME fullscreen mode)
 
 ## Version 0.1 (21/06/2022)
 
