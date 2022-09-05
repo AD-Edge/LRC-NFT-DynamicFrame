@@ -21,7 +21,7 @@ const app = () => {
     canvas.addEventListener("mousedown", dragStart, false);
     canvas.addEventListener("touchend", dragEnd, false);
     canvas.addEventListener("mouseup", dragEnd, false);
-    canvas.addEventListener('pointermove', pointerTouchMove, false);
+    document.addEventListener('pointermove', pointerTouchMove, false);
 
     //Find Doco example element via ID
     //Doco is a friendly gif in the html layout, to demonstrate some other kind of interactivity
@@ -70,6 +70,7 @@ imgFullScreenClose.src = 'src/fullscreenClose.png';
 
 var fullScreenToggle = false;
 var fullScreenOver = false;
+var fSScale = 0.25; //Scale Full Screen Icon
 
 //Doco Character (interactivity example)
 var doco = null;
@@ -222,14 +223,12 @@ function pointerTouchMove(e) {
 }
 //when the drag ends - ie touch or mouse ends
 //All activation events while releasing on a hover, ie a 'PRESS' event 
-function dragEnd(e) { 
+function dragEnd() { 
     //Reset Doco
-    if(docoDrag) {
-        docoDrag = false;
-        doco.src = 'src/doco_spin_ops.gif'
-        //re-enable delta link
-        deltaContainer.style.pointerEvents = "all";
-    }
+    docoDrag = false;
+    doco.src = 'src/doco_spin_ops.gif'
+    //re-enable delta link
+    deltaContainer.style.pointerEvents = "all";
 
     if(fullScreenOver) {
         //toggle to fullscreen
@@ -250,15 +249,26 @@ function dragEnd(e) {
 
 //Draw and Calculate select area Fullscreen button
 function drawFullScreenButton() {
+
+    var pad = (width*0.125);
+    pad = Math.min(Math.max(pad, 25), 70);
+    var xLoc = width-pad;
+    var yLoc = height-pad;
+    var xScale = 0.10*(width*0.75);
+
+    //clamp button from going outside of the range 16 -> 54
+    xScale = Math.min(Math.max(xScale, 16), 54); 
+    // console.log(xScale);
+
     ctx.beginPath();
     ctx.fillStyle = 'rgba(100, 100, 240, 0.25)';
-    ctx.rect(width-80, height-80, 70, 70);
+    ctx.rect(xLoc, yLoc, xScale, xScale);
     //determine if mouse is over select area
     ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
     ctx.fill();
 
     if(fullScreenOver) {
-        ctx.rect(width-80, height-80, 70, 70);
+        ctx.rect(xLoc, yLoc, xScale, xScale);
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 0.5)' : 'rgba(100, 140, 240, 0)';
         ctx.fill();
@@ -266,10 +276,10 @@ function drawFullScreenButton() {
 
     //draw fullscreen button in various states
     if(fullScreenToggle) {
-        ctx.drawImage(imgFullScreenClose, width-80, height-80, 70, 70);
+        ctx.drawImage(imgFullScreenClose, xLoc, yLoc, xScale, xScale);
         //console.log("aspect ratio: " + aspectRatio);
     } else {
-        ctx.drawImage(imgFullScreenOpen, width-80, height-80, 70, 70);
+        ctx.drawImage(imgFullScreenOpen, xLoc, yLoc, xScale, xScale);
         //console.log("aspect ratio: " + aspectRatio);
     }
 }
@@ -291,6 +301,7 @@ function renderLoop() {
     ctx.font = height/26 + 'px retroPixel';
     ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
     ctx.fillText("TEMPLATE 0.1.5", 0.5*width, 0.16*height);
+    
     //Draw custom red text for min/max sizes
     if(fullScreenToggle) {
         ctx.fillStyle = '#FF4444';
@@ -316,10 +327,15 @@ function renderLoop() {
     if(docoDrag) {
         ctx.fillStyle = 'rgba(240, 140, 140, 0.4)';
         //determine if mouse is over doco select area
-        ctx.rect((docoX*width)+(0.02*width), docoY*height+0, doco.width-(0.04*width), doco.height+(0.01*height));
+        // ctx.rect((docoX*width), docoY*height, doco.width, doco.height);
+        ctx.rect(docoX*width + (doco.width*0.1), docoY*height + (doco.height*0.01), 
+                                        doco.width-(doco.width*0.2), doco.height-(doco.height*0.02));
         ctx.fill();
     } else {
-        ctx.rect((docoX*width)+(0.04*width), docoY*height+(0.02*height), doco.width-(0.08*width), doco.height-(0.04*height));
+        ctx.rect(docoX*width + (doco.width*0.16), docoY*height + (doco.height*0.075), 
+                                            doco.width-(doco.width*0.33), doco.height-(doco.height*0.15));
+        // console.log("doco width: " + doco.width);
+        // console.log("doco height: " + doco.height);
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(240, 140, 140, 0.75)' : 'rgba(240, 140, 140, 0)';
         ctx.isPointInPath(mouse.x, mouse.y) ? overDoco=true : overDoco=false;
