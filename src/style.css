@@ -4,6 +4,7 @@ body {
   height: 100%;
   padding: 0px;
   margin: auto auto;
+  touch-action: none;
   overflow: hidden; /*  Disable scrollbars */
   display: block; /* No floating content on sides */
   background-color: #222222;
