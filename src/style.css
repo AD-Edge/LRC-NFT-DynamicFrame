@@ -20,7 +20,7 @@ body {
   max-height: 720px;
   max-width: 720px;
   /* disable canvas to see outline, good for debugging */
-  outline: 4px dashed #DDDDFF;
+  outline: 4px dashed #333333;
   outline-offset: -4px;
 }
 

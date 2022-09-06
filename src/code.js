@@ -22,11 +22,9 @@ const app = () => {
     console.log("Maximum Canvas: " + maxCanvas);
 
     //touch and mouse events
-    canvas.addEventListener("touchstart", dragStart, false);
-    canvas.addEventListener("mousedown", dragStart, false);
-    canvas.addEventListener("touchend", dragEnd, false);
-    canvas.addEventListener("mouseup", dragEnd, false);
-    document.addEventListener('pointermove', pointerTouchMove, false);
+    canvas.addEventListener("pointerdown", dragStart, false);
+    canvas.addEventListener("pointerup", dragEnd, false);
+    canvas.addEventListener('pointermove', pointerTouchMove, false);
 
     //Call resize functions on setup so canvas is happy from the start
     resizeToDiv();
@@ -66,6 +64,7 @@ imgFullScreenOpen.src = 'src/fullscreenOpen.png';
 imgFullScreenClose.src = 'src/fullscreenClose.png';
 var fullScreenToggle = false;
 var fullScreenOver = false;
+var pad, xLoc, yLoc, xScale;
 
 //Doco Character (interactivity example)
 var doco = null;
@@ -179,15 +178,29 @@ function repositionDoco() {
 }
 
 //Touch and Mouse Functions
-function dragStart(e) { //when the drag starts
-    // if (e.type === "touchstart") { //if its a touchscreen
-    //     //set initial x-cordinate to where it was before drag started
-    //     // initialX = e.touches[0].clientX - xOffset; 
-    //     //set initial y-cordinate to where it was before drag started
-    //     // initialY = e.touches[0].clientY - yOffset; 
-    // } else { //if its not a touchscreen (mouse) 
-    // }
 
+//Click down/Drag starts
+function dragStart(e) { 
+    //the user cant do anything else but drag
+    e.preventDefault(); 
+    //update the mouse location relative to canvas area
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+
+    //debug mouse/touch CLICK pos
+    ctx.globalAlpha = 1.0; //reset global alpha
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(140, 140, 240, 1)';
+    //console.log("mouse: " + mouse.x + ", " + mouse.y);
+    ctx.arc(mouse.x, mouse.y, height*0.06, 0, 2*Math.PI);
+    ctx.fill();
+    
+    //refresh whether we are over clickable objects
+    //this wont work if its only checking via the *later* render function highlight
+    checkIfOverDoco();
+    checkIfOverFullScreen();
+    
     //Mouse click if hovering over Doco element
     if(overDoco) {
         docoDrag = true;
@@ -196,7 +209,45 @@ function dragStart(e) { //when the drag starts
         //disable delta link (gets in the way when dragging otgherwise)
         deltaContainer.style.pointerEvents = "none";
     }
+    
+    //Mouse click if hovering over Fullscreen element
+    if(fullScreenOver) {
+        //toggle to fullscreen
+        if(!fullScreenToggle) {
+            fullScreenToggle = true;
+            fullScreenEnable();
+        } else {
+            fullScreenToggle = false;
+            fullScreenDisable();
+        }
+    }
 }
+//When the drag ends - ie touch or mouse ends
+//All activation events while releasing on a hover, ie a 'PRESS' event 
+function dragEnd() { 
+    //Reset Doco at the end of the drag event
+    if(docoDrag) {
+        docoDrag = false;
+        doco.src = 'src/doco_spin_ops.gif'
+        //re-enable delta link
+        deltaContainer.style.pointerEvents = "all";
+    }
+
+    //Mouse click if hovering over Fullscreen element
+    // if(fullScreenOver) {
+    //     console.log("clicked fullscreen and over");
+    //     //toggle to fullscreen
+    //     if(!fullScreenToggle) {
+    //         fullScreenToggle = true;
+    //         fullScreenEnable();
+    //     } else {
+    //         fullScreenToggle = false;
+    //         fullScreenDisable();
+    //     }
+    // }
+}
+//Handle the pointer moving
+//Drag Doco around if selected
 function pointerTouchMove(e) {
     //the user cant do anything else but drag
     e.preventDefault(); 
@@ -212,52 +263,27 @@ function pointerTouchMove(e) {
         repositionDoco();
     }
 }
-//when the drag ends - ie touch or mouse ends
-//All activation events while releasing on a hover, ie a 'PRESS' event 
-function dragEnd() { 
-    //Reset Doco
-    if(docoDrag) {
-        docoDrag = false;
-        doco.src = 'src/doco_spin_ops.gif'
-        //re-enable delta link
-        deltaContainer.style.pointerEvents = "all";
-    }
-    if(fullScreenOver) {
-        //toggle to fullscreen
-        if(!fullScreenToggle) {
-            fullScreenToggle = true;
-            fullScreenEnable();
-        } else {
-            fullScreenToggle = false;
-            fullScreenDisable();
-        }
-    }
-}
 
-//Todo - handle pointer leaving canvas
+//Todo? - handle pointer leaving canvas
 // canvas.onpointerout = function(e) {
 //     overDoco = false;
 // };
 
 //Draw and Calculate select area Fullscreen button
 function drawFullScreenButton() {
-    var pad = (width*0.125);
+    pad = (width*0.125);
     //clamp padding amount to reasonable levels
     pad = Math.min(Math.max(pad, 25), 70);
-    var xLoc = width-pad;
-    var yLoc = height-pad;
-    var xScale = 0.10*(width*0.75);
+    xLoc = width-pad;
+    yLoc = height-pad;
+    xScale = 0.10*(width*0.75);
     //clamp button from going outside of the range 16 -> 54
     xScale = Math.min(Math.max(xScale, 16), 54);
 
-    ctx.beginPath();
-    ctx.fillStyle = 'rgba(100, 100, 240, 0.25)';
-    ctx.rect(xLoc, yLoc, xScale, xScale);
-    //determine if mouse is over select area
-    ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
-    ctx.fill();
-
+    //draw and check fullscreen button
+    checkIfOverFullScreen();
     if(fullScreenOver) {
+        ctx.fillStyle = 'rgba(100, 100, 240, 0.25)';
         ctx.rect(xLoc, yLoc, xScale, xScale);
         //determine if mouse is over doco select area
         ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(100, 140, 240, 0.5)' : 'rgba(100, 140, 240, 0)';
@@ -270,6 +296,25 @@ function drawFullScreenButton() {
     } else {
         ctx.drawImage(imgFullScreenOpen, xLoc, yLoc, xScale, xScale);
     }
+}
+
+function checkIfOverFullScreen() {
+    ctx.beginPath();
+    ctx.rect(xLoc, yLoc, xScale, xScale);
+    ctx.fillStyle = 'rgba(100, 100, 240, 0.25)';
+    //determine if mouse is over select area
+    ctx.isPointInPath(mouse.x, mouse.y) ? fullScreenOver=true : fullScreenOver=false;
+    ctx.fill();
+}
+
+function checkIfOverDoco() {
+    ctx.beginPath();
+    ctx.rect(docoX*width + (doco.width*0.16), docoY*height + (doco.height*0.075), 
+                                        doco.width-(doco.width*0.33), doco.height-(doco.height*0.15));
+    //determine if mouse is over doco select area
+    ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(240, 140, 140, 0.75)' : 'rgba(240, 140, 140, 0)';
+    ctx.isPointInPath(mouse.x, mouse.y) ? overDoco=true : overDoco=false;
+    ctx.fill();
 }
 
 //Main Render Loop
@@ -288,9 +333,11 @@ function renderLoop() {
     ctx.textAlign = "center";
     ctx.font = height/26 + 'px retroPixel';
     ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
-    ctx.fillText("TEMPLATE 0.1.6", 0.5*width, 0.16*height);
+    ctx.fillText("TEMPLATE 0.1.7", 0.5*width, 0.16*height);
 
     //Draw custom red text for min/max sizes
+    ctx.fillStyle = '#303030';
+    ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
     if(fullScreenToggle) {
         ctx.fillStyle = '#FF4444';
         ctx.fillText('FULLSCREEN', 0.5*width, 0.88*height);
@@ -307,30 +354,17 @@ function renderLoop() {
         ctx.fillText("SIZE: ", 0.46*width, 0.88*height);
         
     }
-    ctx.fillStyle = '#303030';
-    ctx.fillText("*RESIZE WINDOW*", 0.5*width, 0.92*height);
 
-    //Draw and Calculate select area for Doco
-    ctx.beginPath();
-    if(docoDrag) {
-        ctx.fillStyle = 'rgba(240, 140, 140, 0.4)';
-        //determine if mouse is over doco select area
-        ctx.rect(docoX*width + (doco.width*0.1), docoY*height + (doco.height*0.01), 
-                                        doco.width-(doco.width*0.2), doco.height-(doco.height*0.02));
-        ctx.fill();
-    } else {
-        ctx.rect(docoX*width + (doco.width*0.16), docoY*height + (doco.height*0.075), 
-                                            doco.width-(doco.width*0.33), doco.height-(doco.height*0.15));
-        //determine if mouse is over doco select area
-        ctx.fillStyle = ctx.isPointInPath(mouse.x, mouse.y) ? 'rgba(240, 140, 140, 0.75)' : 'rgba(240, 140, 140, 0)';
-        ctx.isPointInPath(mouse.x, mouse.y) ? overDoco=true : overDoco=false;
-        ctx.fill();
+    //Draw select-area for Doco
+    if(!docoDrag) {
+        checkIfOverDoco();
     }
 
+    //Draw the button which toggles fullscreen mode
     drawFullScreenButton();
 
-    //debug mouse/touch pos
-    ctx.globalAlpha = 1.0; //reset global alpha
+    //debug mouse/touch pos - final draw call so it draws on top
+    ctx.globalAlpha = 0.5; //reset global alpha
     ctx.beginPath();
     ctx.fillStyle = 'rgba(240, 140, 140, 1)';
     //console.log("mouse: " + mouse.x + ", " + mouse.y);
