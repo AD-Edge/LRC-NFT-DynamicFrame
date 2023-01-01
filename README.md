@@ -31,7 +31,7 @@ https://twitter.com/Alex_ADEdge
 
 [delta-edge.com](http://www.delta-edge.com/)
 
-delta.loopring.eth
+[delta.loopring.eth](https://explorer.loopring.io/account/61117)
 
 <hr>
 
