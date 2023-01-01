@@ -37,7 +37,7 @@ https://twitter.com/Alex_ADEdge
 
 Feel free to use for your own html/canvas NFT needs - this template is free for public and commercial use and you can modify it as you need.
 
-All I ask is to credit me **(Alex_ADEdge - twitter.com/Alex_ADEdge)** somewhere alongside/within works which use the template - and be sure to show me any neat NFTs this helps you make :D
+All I ask is to credit me **(Alex_ADEdge - twitter.com/Alex_ADEdge)** alongside/within works which use the template + I'd enjoy seeing any neat NFTs this template helps you make - dont hesitate to let me know! :D
 
 Donations (LRC/ETH/USDC) are welcome if you'd like to support me, my L2/L1 wallet address ens: delta.loopring.eth
 
