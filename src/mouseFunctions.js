@@ -18,7 +18,7 @@ function dragStart(e) {
     
     //refresh whether we are over clickable objects
     //this wont work if its only checking via the *later* render function highlight
-    checkIfOverDoco();
+    if(doco) { checkIfOverDoco(); }
     checkIfOverFullScreen();
     
     //Mouse click if hovering over Doco element

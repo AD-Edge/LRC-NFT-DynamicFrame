@@ -29,8 +29,10 @@ const app = () => {
     //Call resize functions on setup so canvas is happy from the start
     resizeToDiv();
     //Setup doco character example
-    resizeDoco();
-    repositionDoco();
+    if(doco) {
+        resizeDoco();
+        repositionDoco();
+    }
 
     //Preload custom font and kick off main processes
     var f = new FontFace('retroPixel', 'url(./src/EarlyGameBoy.ttf)');
@@ -49,6 +51,7 @@ var width = 0;
 var height = 0;
 var aspectRatio = 0;
 var renderInterval;
+var eyeInterval;
 
 //Min and Max values, set by looking at the CSS values for 'nftBOX' div
 var minCanvas;
@@ -64,6 +67,15 @@ imgFullScreenOpen.src = 'src/fullscreenOpen.png';
 imgFullScreenClose.src = 'src/fullscreenClose.png';
 var fullScreenToggle = false;
 var fullScreenOver = false;
+
+//eye tracking example 
+let imgEyeL = new Image();
+let imgEyeR = new Image();
+let imgDocoBlank = new Image();
+imgEyeL.src = 'src/eye.png'
+imgEyeR.src = 'src/eye.png'
+imgDocoBlank.src = 'src/doco_blank.png'
+
 var pad, xLoc, yLoc, xScale;
 
 //Make a memory only canvas for redraw 
@@ -82,8 +94,10 @@ window.onresize = function()
         resizeToDiv();
     }
     //Doco resize
-    resizeDoco();
-    repositionDoco();
+    if(doco) {
+        resizeDoco();
+        repositionDoco();
+    }
 }
 
 //Todo? - handle pointer leaving canvas
@@ -114,9 +128,21 @@ function drawFullScreenButton() {
 
     //draw fullscreen button in various states
     if(fullScreenToggle) {
-        ctx.drawImage(imgFullScreenClose, xLoc, yLoc, xScale, xScale);
+        if(fullScreenOver) {
+            ctx.drawImage(imgFullScreenClose, xLoc, yLoc, xScale, xScale);
+        } else {
+            ctx.globalAlpha = 0.15;
+            ctx.drawImage(imgFullScreenClose, xLoc, yLoc, xScale, xScale);
+            ctx.globalAlpha = 1;
+        }
     } else {
-        ctx.drawImage(imgFullScreenOpen, xLoc, yLoc, xScale, xScale);
+        if(fullScreenOver) {
+            ctx.drawImage(imgFullScreenOpen, xLoc, yLoc, xScale, xScale);
+        } else {
+            ctx.globalAlpha = 0.15;
+            ctx.drawImage(imgFullScreenOpen, xLoc, yLoc, xScale, xScale);
+            ctx.globalAlpha = 1;
+        }
     }
 }
 
@@ -136,8 +162,9 @@ function renderLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //Draw arrows scale icon (with opacity)
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 1;
     ctx.drawImage(imgScaleIcon, 0, 0, width, height);
+    // ctx.drawImage(imgDocoBlank, width*0.35, height*0.35, width*0.3, width*0.3);
     ctx.globalAlpha = 1;
     
     //Draw Title text
@@ -145,7 +172,7 @@ function renderLoop() {
     ctx.textAlign = "center";
     ctx.font = height/26 + 'px retroPixel';
     ctx.fillText("*DYNAMIC FRAME*", 0.5*width, 0.12*height);
-    ctx.fillText("TEMPLATE 0.1.8", 0.5*width, 0.16*height);
+    ctx.fillText("TEMPLATE 0.1.9", 0.5*width, 0.16*height);
 
     //Draw custom red text for min/max sizes
     ctx.fillStyle = '#303030';
@@ -167,8 +194,17 @@ function renderLoop() {
         
     }
 
+    //Eye stuff
+    //recalc eye variables
+    // eyeScale = (loopyScale/14) * width;
+    // eyeL_X = (width*0.435);
+    // eyeR_X = (width*0.50);
+    // eye_Y = (height*0.42);
+    // ctx.drawImage(imgEyeL, cXL + eyeL_X, cYL + eye_Y, eyeScale, eyeScale);
+    // ctx.drawImage(imgEyeR, cXR + eyeR_X, cYR + eye_Y, eyeScale, eyeScale);
+
     //Draw select-area for Doco
-    if(!docoDrag) {
+    if(!docoDrag && doco) {
         checkIfOverDoco();
     }
 
@@ -193,6 +229,8 @@ function startPANEL() {
 
     //set off render process
     renderInterval = setInterval(renderLoop, 20);
+
+    eyeInterval = setInterval(calcDrawEyes, 50);
 }
 
 //Kick off app function when initial HTML document loaded

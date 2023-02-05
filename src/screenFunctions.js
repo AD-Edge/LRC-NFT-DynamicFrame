@@ -3,8 +3,10 @@
 function fullScreenEnable() {
     //resize elements
     resizeToDiv();
-    resizeDoco();
-    repositionDoco();
+    if(doco) {
+        resizeDoco();
+        repositionDoco();
+    }
 }
 function fullScreenDisable() {
     //reset constraints 
@@ -14,8 +16,10 @@ function fullScreenDisable() {
     nftBOX.style.minHeight = minCanvas + 'px';
     //resize elements
     resizeToDiv();
-    resizeDoco();
-    repositionDoco();
+    if(doco) {
+        resizeDoco();
+        repositionDoco();
+    }
 }
 
 //Primary resize function for canvas
