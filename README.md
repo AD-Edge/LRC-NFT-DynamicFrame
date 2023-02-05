@@ -9,7 +9,7 @@ Want to learn how to make your first interactive NFT?
 
 Or just want an intro to get started with the Dynamic Frame NFT Template? 
 
-[tutorial coming soon]
+[tutorials coming soon]
 
 <hr>
 
@@ -31,13 +31,15 @@ https://twitter.com/Alex_ADEdge
 
 [delta-edge.com](http://www.delta-edge.com/)
 
-delta.loopring.eth
+[delta.loopring.eth](https://explorer.loopring.io/account/61117)
 
 <hr>
 
-Feel free to use for your own html/canvas NFT needs.
+Feel free to use for your own html/canvas NFT needs - this template is free for public and commercial use and you can modify it as you need.
 
-Just credit me **(Alex Delderfield - twitter.com/Alex_ADEdge)** somewhere/sometime, and be sure to show me any neat NFTs this helps you make :D
+All I ask is to credit me **(Alex_ADEdge - twitter.com/Alex_ADEdge)** alongside/within works which use the template + I'd enjoy seeing any neat NFTs this template helps you make - dont hesitate to let me know! :D
+
+Donations (LRC/ETH/USDC) are welcome if you'd like to support me, my L2/L1 wallet address ens: delta.loopring.eth
 
 <hr>
 
