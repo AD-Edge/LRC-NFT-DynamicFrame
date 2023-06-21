@@ -80,7 +80,7 @@ scales with the help of javascript */
 
 /* Example of a simple static 
 image/link element which scales */
-#container {
+#containerTwt {
   position: absolute;
   pointer-events: all;
   top: 44%;
@@ -90,7 +90,20 @@ image/link element which scales */
 /*we dont need this getting too big*/
   max-width: 80px;
 }
-#container:hover .overlay {
+#containerTwt:hover .overlay {
+  opacity: 0.8;
+}
+#containerDis {
+  position: absolute;
+  pointer-events: all;
+  top: 44%;
+  left: 1.25%;
+  z-index: 12;
+  width: 12%;
+/*we dont need this getting too big*/
+  max-width: 80px;
+}
+#containerDis:hover .overlay {
   opacity: 0.8;
 }
 /*image class for static image*/

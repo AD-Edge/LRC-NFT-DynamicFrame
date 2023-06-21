@@ -230,7 +230,7 @@ function startPANEL() {
     //set off render process
     renderInterval = setInterval(renderLoop, 20);
 
-    eyeInterval = setInterval(calcDrawEyes, 50);
+    // eyeInterval = setInterval(calcDrawEyes, 50);
 }
 
 //Kick off app function when initial HTML document loaded
