@@ -1,7 +1,10 @@
 # LRC-NFT-DynamicFrame
 A dynamic-frame template for canvas/html-based NFT dev on Loopring L2.
 
-![v0.1.2IMGDEMO](dynamic_resize01_2op.gif)
+| ![v0.1.2IMGDEMO](dynamic_resize01_2op.gif) | 
+|:--:| 
+| *[Dynamic Frame Demo/GIF]* |
+
 
 # Getting Started
 
